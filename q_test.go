@@ -35,3 +35,23 @@ func BenchmarkShift(b *testing.B) {
 		q.Shift()
 	}
 }
+
+func TestPush(t *testing.T) {
+	q := NewQ()
+
+	if len(q.list) != 0 {
+		t.Error("expected 0, got:", len(q.list))
+	}
+
+	q.Push(1)
+
+	if len(q.list) != 1 {
+		t.Error("expected 1, got:", len(q.list))
+	}
+
+	q.Push(2)
+
+	if len(q.list) != 2 {
+		t.Error("expected 2, got:", len(q.list))
+	}
+}
