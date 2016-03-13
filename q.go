@@ -28,6 +28,6 @@ func (q *Q) Pop() {
 
 func (q *Q) Shift() {
 	if len(q.list) > 0 {
-		q.list = q.list[:1]
+		q.list = q.list[1:]
 	}
 }
