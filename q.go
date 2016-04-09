@@ -31,3 +31,11 @@ func (q *Q) Shift() {
 		q.list = q.list[1:]
 	}
 }
+
+func (q *Q) Remove(el int) {
+	for i, v := range q.list {
+		if v == el {
+			q.list = append(q.list[:i], q.list[i+1:]...)
+		}
+	}
+}

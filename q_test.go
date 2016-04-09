@@ -36,6 +36,14 @@ func BenchmarkShift(b *testing.B) {
 	}
 }
 
+func BenchmarkRemove(b *testing.B) {
+	q := NewQ()
+
+	for i := 0; i < b.N; i++ {
+		q.Remove(i)
+	}
+}
+
 func TestPushLength(t *testing.T) {
 	q := NewQ()
 
@@ -179,5 +187,31 @@ func TestShiftInfo(t *testing.T) {
 
 	if q.list[0] != 3 {
 		t.Error("expected first position be 3, but got: ", q.list[0])
+	}
+}
+
+func TestRemoveInfo(t *testing.T) {
+	q := NewQ()
+
+	q.Push(1)
+	q.Push(2)
+	q.Push(3)
+
+	q.Remove(2)
+
+	if q.list[0] != 1 || q.list[1] != 3 {
+		t.Error("expected first position to be 1 and last position to be 3, but got: ", q.list[0], q.list[1])
+	}
+
+	q.Remove(3)
+
+	if q.list[0] != 1 {
+		t.Error("expected first position be 1, but got: ", q.list[0])
+	}
+
+	q.Remove(1)
+
+	if len(q.list) != 0 {
+		t.Error("expected slice to be empty, but got: ", len(q.list))
 	}
 }
