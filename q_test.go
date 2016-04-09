@@ -1,16 +1,18 @@
 package q
 
-import (
-	"testing"
-)
+import "testing"
 
-/*func BenchmarkUnshift(b *testing.B) {
+func TestMain(m *testing.M) {
+	m.Run()
+}
+
+func BenchmarkUnshift(b *testing.B) {
 	q := NewQ()
 
 	for i := 0; i < b.N; i++ {
-		q.Push(i)
+		q.Unshift(i)
 	}
-}*/
+}
 
 func BenchmarkPush(b *testing.B) {
 	q := NewQ()
@@ -44,6 +46,54 @@ func BenchmarkRemove(b *testing.B) {
 	}
 }
 
+func BenchmarkClean(b *testing.B) {
+	q := NewQ()
+
+	for i := 0; i < b.N; i++ {
+		q.Clean()
+	}
+}
+
+func BenchmarkAddAmount(b *testing.B) {
+	q := NewQ()
+
+	for i := 0; i < b.N; i++ {
+		q.AddAmount(999)
+	}
+}
+
+func TestUnshiftLength(t *testing.T) {
+	q := NewQ()
+
+	if len(q.list) != 0 {
+		t.Error("expected 0, got:", len(q.list))
+	}
+
+	q.Unshift(1)
+
+	if len(q.list) != 1 {
+		t.Error("expected 1, got:", len(q.list))
+	}
+
+	if q.list[0] != 1 {
+		t.Error("expected first position to be 1, but got: ", q.list[0])
+	}
+
+	q.Unshift(2)
+
+	if len(q.list) != 2 {
+		t.Error("expected 2, got:", len(q.list))
+	}
+
+	if q.list[0] != 2 {
+		t.Error("expected first position to be 2, but got: ", q.list[0])
+	}
+
+	if q.list[1] != 1 {
+		t.Error("expected last position to be 1, but got: ", q.list[1])
+	}
+}
+
 func TestPushLength(t *testing.T) {
 	q := NewQ()
 
@@ -57,10 +107,22 @@ func TestPushLength(t *testing.T) {
 		t.Error("expected 1, got:", len(q.list))
 	}
 
+	if q.list[0] != 1 {
+		t.Error("expected first position to be 1, but got: ", q.list[0])
+	}
+
 	q.Push(2)
 
 	if len(q.list) != 2 {
 		t.Error("expected 2, got:", len(q.list))
+	}
+
+	if q.list[0] != 1 {
+		t.Error("expected first position to be 1, but got: ", q.list[0])
+	}
+
+	if q.list[1] != 2 {
+		t.Error("expected last position to be 2, but got: ", q.list[1])
 	}
 }
 
@@ -213,5 +275,35 @@ func TestRemoveInfo(t *testing.T) {
 
 	if len(q.list) != 0 {
 		t.Error("expected slice to be empty, but got: ", len(q.list))
+	}
+}
+
+func TestClean(t *testing.T) {
+	q := NewQ()
+
+	q.Push(1)
+	q.Push(2)
+	q.Push(3)
+
+	q.Clean()
+
+	if len(q.list) != 0 {
+		t.Error("expected slice to be empty, but got: ", len(q.list))
+	}
+}
+
+func TestAddAmount(t *testing.T) {
+	q := NewQ()
+
+	q.AddAmount(999)
+
+	if len(q.list) != 999 {
+		t.Error("expected slice to have length of 999, but got: ", len(q.list))
+	}
+
+	q.AddAmount(1)
+
+	if len(q.list) != 1000 {
+		t.Error("expected slice to have length of 1000, but got: ", len(q.list))
 	}
 }
