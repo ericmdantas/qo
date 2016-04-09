@@ -1,5 +1,5 @@
 language: go
 sudo: false
-go: tip
+go: "stable"
 before_script: go vet ./...
 script: go test -v ./... -bench=. -benchmem
