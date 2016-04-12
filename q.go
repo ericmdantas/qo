@@ -1,20 +1,16 @@
 package q
 
-const (
-	max int = 10000000
-)
-
 type Q struct {
-	list   []int
+	list   []interface{}
 	length int
 }
 
 func NewQ() *Q {
-	return &Q{list: []int{}, length: 0}
+	return &Q{list: []interface{}{}, length: 0}
 }
 
-func (q *Q) Unshift(i int) {
-	q.list = append([]int{i}, q.list...)
+func (q *Q) Unshift(info interface{}) {
+	q.list = append([]interface{}{info}, q.list...)
 }
 
 func (q *Q) AddAmount(am int) {
@@ -25,8 +21,8 @@ func (q *Q) AddAmount(am int) {
 	q.length = len(q.list)
 }
 
-func (q *Q) Push(i int) {
-	q.list = append(q.list, i)
+func (q *Q) Push(info interface{}) {
+	q.list = append(q.list, info)
 	q.length = len(q.list)
 }
 
@@ -46,7 +42,7 @@ func (q *Q) Shift() {
 	q.length = len(q.list)
 }
 
-func (q *Q) Remove(el int) {
+func (q *Q) Remove(el interface{}) {
 	for i, v := range q.list {
 		if v == el {
 			q.list = append(q.list[:i], q.list[i+1:]...)
@@ -57,6 +53,6 @@ func (q *Q) Remove(el int) {
 }
 
 func (q *Q) Clean() {
-	q.list = []int{}
+	q.list = []interface{}{}
 	q.length = 0
 }
