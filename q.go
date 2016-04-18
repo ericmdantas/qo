@@ -18,28 +18,26 @@ func (q *Q) AddAmount(am int) {
 		q.list = append(q.list, i)
 	}
 
-	q.length = len(q.list)
+	q.length = am
 }
 
 func (q *Q) Push(info interface{}) {
 	q.list = append(q.list, info)
-	q.length = len(q.list)
+	q.length += 1
 }
 
 func (q *Q) Pop() {
 	if q.length > 0 {
 		q.list = q.list[:len(q.list)-1]
+		q.length -= 1
 	}
-
-	q.length = len(q.list)
 }
 
 func (q *Q) Shift() {
 	if q.length > 0 {
 		q.list = q.list[1:]
+		q.length -= 1
 	}
-
-	q.length = len(q.list)
 }
 
 func (q *Q) Remove(el interface{}) {
