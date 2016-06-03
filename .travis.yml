@@ -4,4 +4,4 @@ go:
   - 1.6
   - tip
 before_script: go vet ./...
-script: go test -v ./... -bench=. -benchmem
+script: go test -v ./... -cover -bench=. -benchmem
